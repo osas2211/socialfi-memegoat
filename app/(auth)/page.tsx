@@ -42,15 +42,11 @@ const AuthPage = () => {
                 </Button>
               </div>
             </motion.div>
-            {/* <div className="lg:w-[50%] h-[50rem] relative">
-          <Image fill className="w-full h-full" src={"/logo.svg"} alt="" />
-        </div> */}
           </div>
         </div>
       </div>
 
       <div className="fixed top-0 left-0 w-full h-[50px] blur-[200px] bg-primary-20"></div>
-      {/* <div className="fixed bottom-0 -right-10 h-[10rem] w-[10rem] blur-[180px] bg-primary-20"></div> */}
       <div className="fixed top-[50%] right-[30%] h-[15rem] w-[15rem] blur-[250px] bg-primary-20"></div>
       <div className="fixed top-[10vh] right-0 md:right-[-30rem] hidden xl:block z-[30]">
         <motion.div

@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-custom-black`}>
+      <body className={`${inter.className} bg-custom-black text-custom-white`}>
         <AntProvider>{children} </AntProvider>
       </body>
     </html>
