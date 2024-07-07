@@ -28,7 +28,7 @@ export const Leaderboard = () => {
         transition={{ duration: 0.5, delay: 1 }}
         className="relative"
       >
-        <div className="rounded-sm from-primary-90/5 to-primary-60/20 md:p-6 p-4 border-[1px] border-primary-100 relative bg-gradient-to-r">
+        <div className="rounded-sm from-primary-90/5 to-primary-60/20 md:p-6 p-4 border-[1px] border-primary-100 relative bg-gradient-to-r overflow-hidden">
           <h3 className="text-lg md:text-2xl">Our Leaderboard</h3>
           <p className="text-custom-white/55 text-sm md:text-[16px] mt-1">
             Tweet to Earn <span className="text-primary-50"> $GOATSTX</span>{" "}
