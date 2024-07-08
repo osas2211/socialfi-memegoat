@@ -6,8 +6,8 @@ import { AntProvider } from "@/components/shared/AntProvider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MemeGoat | SocialFi",
-  description: "Secure layer of meme on Bitcoin",
+  title: "MemeGoat Earn | SocialFi",
+  description: "Secure layer for memes on Bitcoin",
   keywords: [
     "MemeGoat",
     "Meme",
@@ -18,10 +18,11 @@ export const metadata: Metadata = {
     "MemeGoat STX",
     "MemeGoatSTX",
     "MemeGoat Socialfi",
+    "MemeGoat Earn",
   ],
   publisher: "MemeGoat",
   openGraph: {
-    title: "MemeGoat | SocialFi",
+    title: "MemeGoat Earn | SocialFi",
     siteName: "MemeGoat",
     images: [
       {
