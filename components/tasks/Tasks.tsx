@@ -1,12 +1,28 @@
 "use client"
-import React from "react"
 import Image from "next/image"
+import { instance } from "@/app/api"
 import { motion } from "framer-motion"
 import { BiTask } from "react-icons/bi"
+import React, { useEffect } from "react"
+import { TaskStore } from "@/utils/store"
+import throwError from "@/utils/throwError"
 import { BsCheck2Circle } from "react-icons/bs"
+import { AxiosError, AxiosResponse } from "axios"
 import { MdRadioButtonUnchecked } from "react-icons/md"
 
 export const Tasks = () => {
+  const { tasks, setTasks } = TaskStore()
+
+  const fetchTasks = async () => {
+    await instance.get('/tasks')
+      .then((res: AxiosResponse) => setTasks(res.data.data))
+      .catch((err: AxiosError) => throwError(err))
+  }
+
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
   return (
     <div>
       <div className="fixed top-[10vh] right-[50%] translate-x-[50%]  z-[0]">
@@ -38,30 +54,14 @@ export const Tasks = () => {
         </div>
 
         <div className="mt-10 space-y-5">
-          <div className="border-l-2 border-primary-30 p-5 bg-gradient-to-r from-primary-60/20 to-primary-70/5">
-            <div className="flex gap-4 items-center">
-              <BsCheck2Circle className="text-2xl md:text-3xl text-primary-10" />
-              <p>Create a daily twitter post about devcoin</p>
+          {tasks.map(({ id, content }) => (
+            <div key={id} className="border-l-2 border-primary-30 p-5 bg-gradient-to-r from-primary-60/20 to-primary-70/5">
+              <div className="flex gap-4 items-center">
+                <BsCheck2Circle className="text-2xl md:text-3xl text-primary-10" />
+                <p dangerouslySetInnerHTML={{ __html: content }} />
+              </div>
             </div>
-          </div>
-          <div className="border-l-2 border-primary-30 p-5 bg-gradient-to-r from-primary-60/20 to-primary-70/5">
-            <div className="flex gap-4 items-center">
-              <BsCheck2Circle className="text-2xl md:text-3xl text-primary-10" />
-              <p>Follow DevCoin on Twitter</p>
-            </div>
-          </div>
-          <div className="border-l-2 border-primary-30 p-5 bg-gradient-to-r from-primary-60/20 to-primary-70/5">
-            <div className="flex gap-4 items-center">
-              <MdRadioButtonUnchecked className="text-2xl md:text-3xl text-silver" />
-              <p>Stake Memecoin token</p>
-            </div>
-          </div>
-          <div className="border-l-2 border-primary-30 p-5 bg-gradient-to-r from-primary-60/20 to-primary-70/5">
-            <div className="flex gap-4 items-center">
-              <BsCheck2Circle className="text-2xl md:text-3xl text-primary-10" />
-              <p>Follow MemeGoat on Twitter</p>
-            </div>
-          </div>
+          ))}
         </div>
       </motion.div>
     </div>

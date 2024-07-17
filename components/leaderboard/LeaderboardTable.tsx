@@ -1,32 +1,25 @@
 "use client"
-import React from "react"
 import {
-  Avatar,
-  Button,
-  DatePicker,
+  Tag,
   Input,
   Select,
   Space,
   Table,
-  Tag,
+  Avatar,
+  Button,
+  DatePicker,
 } from "antd"
-import type { TableProps } from "antd"
 import moment from "moment"
 import Link from "next/link"
-import { BiCheckCircle, BiLinkExternal, BiSearch } from "react-icons/bi"
-import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { instance } from "@/app/api"
+import type { TableProps } from "antd"
 import { BsTwitterX } from "react-icons/bs"
+import { LeaderboardStore } from "@/utils/store"
+import React, { useEffect, useState } from "react"
+import { AiOutlineLoading3Quarters } from "react-icons/ai"
+import { BiCheckCircle, BiLinkExternal, BiSearch } from "react-icons/bi"
 
-interface DataType {
-  id: string
-  rank: string
-  staking_points: number
-  user: string
-  referral_points: number
-  tweets: number
-}
-
-const columns: TableProps<DataType>["columns"] = [
+const columns: TableProps<ILeaderboard>["columns"] = [
   {
     title: "Rank",
     dataIndex: "rank",
@@ -38,16 +31,16 @@ const columns: TableProps<DataType>["columns"] = [
     ),
   },
   {
-    title: "User",
-    dataIndex: "user",
-    key: "user",
+    title: "Username",
+    dataIndex: "username",
+    key: "username",
     render(value, record) {
       return (
         <Link
           href={""}
           className="font-medium flex items-center gap-2 hover:text-white text-primary-20 py-3"
         >
-          <p className="underline">{record.user}</p>
+          <p className="underline">{record.username}</p>
           <BiLinkExternal className="text-[20px]" />
         </Link>
       )
@@ -61,84 +54,20 @@ const columns: TableProps<DataType>["columns"] = [
       return <div className="font-medium orbitron">{record.tweets}</div>
     },
   },
-  {
-    title: "Staking Points",
-    dataIndex: "staking_points",
-    key: "staking_points",
-    render(value, record) {
-      return <div className="font-medium orbitron">{record.staking_points}</div>
-    },
-  },
-
-  {
-    title: "Referral Points",
-    dataIndex: "referral_points",
-    key: "referral_points",
-    render(value, record) {
-      return (
-        <div className="font-medium orbitron">{record.referral_points}</div>
-      )
-    },
-  },
-
-  {
-    title: "Total Points",
-    dataIndex: "staking_points",
-    key: "staking_points",
-    render(value, record) {
-      return (
-        <div className="font-medium orbitron">
-          {record.staking_points + record.referral_points}
-        </div>
-      )
-    },
-  },
-]
-
-const data: DataType[] = [
-  {
-    id: "1",
-    staking_points: 5000,
-    user: "0xe6...aaAA",
-    referral_points: 5,
-    rank: "1",
-    tweets: 10,
-  },
-  {
-    id: "2",
-    staking_points: 19000,
-    user: "0xe6...aaAA",
-    referral_points: 105,
-    rank: "2",
-    tweets: 30,
-  },
-  {
-    id: "3",
-    staking_points: 25000,
-    user: "0xe6...aaAA",
-    referral_points: 295,
-    rank: "3",
-    tweets: 17,
-  },
-  {
-    id: "4",
-    staking_points: 125000,
-    user: "0xe6...aaAA",
-    referral_points: 395,
-    rank: "4",
-    tweets: 18,
-  },
-  {
-    id: "5",
-    staking_points: 19000,
-    user: "0xe6...aaAA",
-    referral_points: 105,
-    rank: "5",
-    tweets: 20,
-  },
 ]
 
 export const LeaderboardTable: React.FC = () => {
+  const { stats, setStats } = LeaderboardStore()
+
+  const leaderboard = async () => {
+    const { data } = await instance.get('/leaderboard')
+    setStats(data.data)
+  }
+
+  useEffect(() => {
+    leaderboard()
+  }, [])
+
   return (
     <div>
       <h3
@@ -166,7 +95,7 @@ export const LeaderboardTable: React.FC = () => {
 
       <Table
         columns={columns}
-        dataSource={data}
+        dataSource={stats}
         pagination={{
           size: "small",
           responsive: true,

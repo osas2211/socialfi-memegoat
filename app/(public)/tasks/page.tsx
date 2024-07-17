@@ -1,6 +1,6 @@
-import { PageContainer } from "@/components/shared/PageContainer"
-import { Tasks } from "@/components/tasks/Tasks"
 import React from "react"
+import { Tasks } from "@/components/tasks/Tasks"
+import { PageContainer } from "@/components/shared/PageContainer"
 
 const DashboardPage = () => {
   return (
