@@ -17,7 +17,7 @@ import { BsTwitterX } from "react-icons/bs"
 import { LeaderboardStore } from "@/utils/store"
 import React, { useEffect, useState } from "react"
 import { AiOutlineLoading3Quarters } from "react-icons/ai"
-import { BiCheckCircle, BiLinkExternal, BiSearch } from "react-icons/bi"
+import { BiCheckCircle, BiLinkExternal, BiSearch, BiUser } from "react-icons/bi"
 
 const columns: TableProps<ILeaderboard>["columns"] = [
   {
@@ -40,8 +40,13 @@ const columns: TableProps<ILeaderboard>["columns"] = [
           href={""}
           className="font-medium flex items-center gap-2 hover:text-white text-primary-20 py-3"
         >
-          <p className="underline">{record.username}</p>
-          <BiLinkExternal className="text-[20px]" />
+          <Avatar size={26} src={record.avatar}>
+            <BiUser />
+          </Avatar>
+          <div className="flex items-center gap-2">
+            <p className="underline">{record.username}</p>
+            <BiLinkExternal className="text-[20px]" />
+          </div>
         </Link>
       )
     },
@@ -60,7 +65,7 @@ export const LeaderboardTable: React.FC = () => {
   const { stats, setStats } = LeaderboardStore()
 
   const leaderboard = async () => {
-    const { data } = await instance.get('/leaderboard')
+    const { data } = await instance.get("/leaderboard")
     setStats(data.data)
   }
 

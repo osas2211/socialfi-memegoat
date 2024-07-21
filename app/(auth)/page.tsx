@@ -11,15 +11,16 @@ import { Header } from "@/components/shared/Header"
 
 const AuthPage = () => {
   const router = useRouter()
-  const { isAuth } = AuthStore()
+  const { isAuth, setIsAuth } = AuthStore()
 
   const xLogin = () => {
+    setIsAuth(true)
     window.open(`${baseURL}/auth/x`, "_self")
   }
 
   useEffect(() => {
     if (isAuth) {
-      router.push('/dashboard')
+      router.push("/dashboard")
     }
   }, [isAuth])
 
@@ -46,8 +47,13 @@ const AuthPage = () => {
                 masterpiece, and the community thrives in the spirit of
                 innovation.
               </p>
-              <div className="md:w-[80%] mx-auto mt-7 grid grid-cols-2 gap-5">
-                <Button icon={<BsTwitterX />} iconPosition="end" type="primary" onClick={() => xLogin()}>
+              <div className="md:w-[50%] mx-auto mt-7 grid grid-cols-1 gap-5">
+                <Button
+                  icon={<BsTwitterX />}
+                  iconPosition="end"
+                  type="primary"
+                  onClick={() => xLogin()}
+                >
                   Sign in with
                 </Button>
                 {/* <Button

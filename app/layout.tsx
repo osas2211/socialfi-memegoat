@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "MemeGoat",
     images: [
       {
-        url: "https://res.cloudinary.com/kawojue/image/upload/v1716165990/memegoat-logo.jpg",
+        url: "/opengraph-image.png",
       },
     ],
   },
@@ -41,9 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-custom-black text-custom-white`}>
-        <Toaster
-          position="top-center"
-          reverseOrder={false} />
+        <Toaster position="top-center" reverseOrder={false} />
         <AntProvider>{children} </AntProvider>
       </body>
     </html>

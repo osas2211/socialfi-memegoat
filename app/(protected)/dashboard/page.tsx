@@ -1,3 +1,4 @@
+"use client"
 import { instance } from "@/app/api"
 import React, { useEffect } from "react"
 import { UserStore } from "@/utils/store"
@@ -13,17 +14,19 @@ const DashboardPage = () => {
   const { me, setMe } = UserStore()
 
   const dashboard = async () => {
-    await instance.get('/dashboard')
+    await instance
+      .get("/dashboard")
       .then(({ data }: AxiosResponse) => {
         setMe(data.data)
-        localStorage.setItem('auth', 'true')
-      }).catch((err: AxiosError) => {
+        localStorage.setItem("auth", "true")
+      })
+      .catch((err: AxiosError) => {
         if (err.response?.status === 403) {
-          router.push('/')
+          router.push("/")
         } else {
           throwError(err)
         }
-        localStorage.removeItem('auth')
+        localStorage.removeItem("auth")
       })
   }
 

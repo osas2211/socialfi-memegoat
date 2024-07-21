@@ -23,12 +23,11 @@ export const Header = () => {
   const toggleDrawer = () => setOpen(!open)
 
   const logout = async () => {
-    await instance.post('/auth/logout')
-      .then(() => {
-        localStorage.removeItem('auth')
-        setIsAuth(false)
-        router.push('/')
-      })
+    await instance.post("/auth/logout").then(() => {
+      localStorage.removeItem("auth")
+      setIsAuth(false)
+      router.push("/")
+    })
   }
 
   const onConnectWallet = async () => {
@@ -120,6 +119,15 @@ export const Header = () => {
                 <FaDiscord />
               </Link>
             </div>
+            {isAuth && (
+              <Button
+                danger
+                className="px-14 font-bold bg-transparent mt-5 w-full"
+                onClick={() => logout()}
+              >
+                Log out
+              </Button>
+            )}
           </div>
         </div>
       </Drawer>
@@ -180,19 +188,31 @@ export const Header = () => {
                   <FaDiscord />
                 </Link>
               </div>
-              {
-                userSession.isUserSignedIn() ? (
-                  <Button className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
-                    onClick={() => disconnectWallet()}>
-                    Disconnect Wallet
-                  </Button>
-                ) : (
-                  <Button className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
-                    onClick={() => onConnectWallet()}>
-                    Connect Wallet
-                  </Button>
-                )
-              }
+              {userSession.isUserSignedIn() ? (
+                <Button
+                  className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
+                  onClick={() => disconnectWallet()}
+                >
+                  Disconnect Wallet
+                </Button>
+              ) : (
+                <Button
+                  className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
+                  onClick={() => onConnectWallet()}
+                >
+                  Connect Wallet
+                </Button>
+              )}
+              {isAuth && (
+                <Button
+                  danger
+                  className="px-14 font-bold bg-transparent lg:block hidden"
+                  onClick={() => logout()}
+                >
+                  Log out
+                </Button>
+              )}
+
               <div className="xl:hidden border-[1px] border-primary-90 text-primary-50 p-2">
                 <GiHamburgerMenu
                   className="cursor-pointer"
