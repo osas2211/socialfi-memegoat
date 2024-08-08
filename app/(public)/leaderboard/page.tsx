@@ -1,6 +1,6 @@
-import { Leaderboard } from "@/components/leaderboard/Leaderboard"
-import { PageContainer } from "@/components/shared/PageContainer"
 import React from "react"
+import { PageContainer } from "@/components/shared/PageContainer"
+import { Leaderboard } from "@/components/leaderboard/Leaderboard"
 
 const LeaderboardPage = () => {
   return (

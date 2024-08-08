@@ -1,19 +1,57 @@
 "use client"
-import React, { useState } from "react"
-import { Logo } from "./Logo"
-import { routes } from "@/data/routes"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Logo } from "./Logo"
+import { instance } from "@/app/api"
 import { Button, Drawer } from "antd"
+import { routes } from "@/data/routes"
+import React, { useState } from "react"
 import { MdEmail } from "react-icons/md"
-import { FaXTwitter, FaDiscord } from "react-icons/fa6"
+import { AuthStore } from "@/utils/store"
+import { showConnect } from "@stacks/connect"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { IoCloseCircleOutline } from "react-icons/io5"
+import { FaXTwitter, FaDiscord } from "react-icons/fa6"
+import { userSession, appDetails } from "@/utils/stacks"
+import { usePathname, useRouter } from "next/navigation"
 
 export const Header = () => {
+  const router = useRouter()
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const { isAuth, setIsAuth } = AuthStore()
+
   const toggleDrawer = () => setOpen(!open)
+
+  const logout = async () => {
+    await instance.post('/auth/logout')
+      .then(() => {
+        localStorage.removeItem('auth')
+        setIsAuth(false)
+        router.push('/')
+      })
+  }
+
+  const onConnectWallet = async () => {
+    await showConnect({
+      appDetails,
+      onFinish: () => {
+        window.location.reload()
+      },
+      userSession,
+    })
+  }
+
+  const getUserPrincipal = () => {
+    const userPrincipal = userSession.isUserSignedIn()
+      ? userSession.loadUserData().profile.stxAddress.mainnet
+      : ""
+    return userPrincipal
+  }
+
+  function disconnectWallet() {
+    userSession.signUserOut("/dashboard")
+  }
+
   return (
     <>
       <Drawer
@@ -142,9 +180,19 @@ export const Header = () => {
                   <FaDiscord />
                 </Link>
               </div>
-              <Button className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50">
-                Connect Wallet
-              </Button>
+              {
+                userSession.isUserSignedIn() ? (
+                  <Button className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
+                    onClick={() => disconnectWallet()}>
+                    Disconnect Wallet
+                  </Button>
+                ) : (
+                  <Button className="px-14 font-bold bg-transparent border-primary-90 md:text-primary-50"
+                    onClick={() => onConnectWallet()}>
+                    Connect Wallet
+                  </Button>
+                )
+              }
               <div className="xl:hidden border-[1px] border-primary-90 text-primary-50 p-2">
                 <GiHamburgerMenu
                   className="cursor-pointer"

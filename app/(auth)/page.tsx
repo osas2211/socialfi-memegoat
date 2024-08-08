@@ -1,12 +1,28 @@
 "use client"
-import React from "react"
-import { motion } from "framer-motion"
-import Image from "next/image"
-import { Header } from "@/components/shared/Header"
 import { Button } from "antd"
+import Image from "next/image"
+import { baseURL } from "@/app/api"
+import { motion } from "framer-motion"
+import React, { useEffect } from "react"
+import { AuthStore } from "@/utils/store"
+import { useRouter } from "next/navigation"
 import { BsTwitterX } from "react-icons/bs"
+import { Header } from "@/components/shared/Header"
 
 const AuthPage = () => {
+  const router = useRouter()
+  const { isAuth } = AuthStore()
+
+  const xLogin = () => {
+    window.open(`${baseURL}/auth/x`, "_self")
+  }
+
+  useEffect(() => {
+    if (isAuth) {
+      router.push('/dashboard')
+    }
+  }, [isAuth])
+
   return (
     <div className="bg-custom-black min-h-screen text-custom-white relative">
       <Header />
@@ -31,15 +47,15 @@ const AuthPage = () => {
                 innovation.
               </p>
               <div className="md:w-[80%] mx-auto mt-7 grid grid-cols-2 gap-5">
-                <Button icon={<BsTwitterX />} iconPosition="end" type="primary">
+                <Button icon={<BsTwitterX />} iconPosition="end" type="primary" onClick={() => xLogin()}>
                   Sign in with
                 </Button>
-                <Button
+                {/* <Button
                   iconPosition="end"
                   className="w-full bg-transparent border-primary-50 text-primary-30"
                 >
                   Connect Wallet
-                </Button>
+                </Button> */}
               </div>
             </motion.div>
           </div>
