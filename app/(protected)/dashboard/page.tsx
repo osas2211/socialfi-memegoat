@@ -1,3 +1,4 @@
+"use client"
 import { instance } from "@/app/api"
 import React, { useEffect } from "react"
 import { UserStore } from "@/utils/store"
