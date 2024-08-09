@@ -7,10 +7,13 @@ import { AntProvider } from "@/components/shared/AntProvider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "MemeGoat Earn | SocialFi",
-  description: "Secure layer for memes on Bitcoin",
+  metadataBase: new URL("https://socialfi.memegoat.io/"),
+  title: "MemeGoat",
+  description:
+    "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
   keywords: [
     "MemeGoat",
+    "MemeGoat App",
     "Meme",
     "Goat",
     "MemeGoatSTX",
@@ -19,17 +22,39 @@ export const metadata: Metadata = {
     "MemeGoat STX",
     "MemeGoatSTX",
     "MemeGoat Socialfi",
-    "MemeGoat Earn",
+    "MemeGoat website",
+    "MemeGoat application",
   ],
   publisher: "MemeGoat",
   openGraph: {
-    title: "MemeGoat Earn | SocialFi",
+    title: "MemeGoat",
+    description:
+      "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
     siteName: "MemeGoat",
+    url: "https://socialfi.memegoat.io/",
+    locale: "en_US",
+    type: "website",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "https://res.cloudinary.com/osaretinfrank/image/upload/v1723235872/204adf06-dc10-42a0-a5ce-a52b4448103b_ym2sfn.jpg",
+        alt: "MemeGoat",
+        width: 1200,
+        height: 675,
       },
     ],
+  },
+  twitter: {
+    images: [
+      {
+        url: "https://res.cloudinary.com/osaretinfrank/image/upload/v1723235872/204adf06-dc10-42a0-a5ce-a52b4448103b_ym2sfn.jpg",
+        alt: "MemeGoat",
+      },
+    ],
+    card: "summary_large_image",
+    site: "@GoatCoinSTX",
+    title: "MemeGoat",
+    description:
+      "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
   },
 }
 
