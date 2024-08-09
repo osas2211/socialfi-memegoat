@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://socialfi.memegoat.io/"),
-  title: "MemeGoat",
+  title: "MemeGoat Socialfi",
   description:
     "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
   keywords: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   ],
   publisher: "MemeGoat",
   openGraph: {
-    title: "MemeGoat",
+    title: "MemeGoat Socialfi",
     description:
       "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
     siteName: "MemeGoat",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     ],
     card: "summary_large_image",
     site: "@GoatCoinSTX",
-    title: "MemeGoat",
+    title: "MemeGoat Socialfi",
     description:
       "Launch | Swap | Raise liquidity | Deploy a pool | Play games | Earn | Promote",
   },
